@@ -1,53 +1,36 @@
 <?php
-namespace model\Models; // namespace rút gọn !!!
-include './Models/StudentModel.php';
-// Khỏi tạo 1 instance của StudentModel
-$sv = new StudentModel("Huy Nguyen",
-    "34","0913360468","HN-NTL");
+include 'Square.php';
 
-// 1 instance khác của StudentModel
-$sv1 = new StudentModel("Huy Nguyen 1",
-    "33","0913360468","HN-NTL");
 
-// gọi class mà ko phân biệt chữ hoa thường (not recommended)
-$sv2 = new \model\Models\StudentModel("Huy Nguyen 1",
-    "33","0913360468","HN-NTL");
+$square = new \model\Models\Square(40);
+// gọi biến pi từ class Square
+// ko cần khởi tạo instance
+echo \model\Models\Square::$pi;
+echo \model\Models\Square::HANG_SO;
+$square->info(); // info là funtion ở lớp cha
+// của square
+$square->tinhDienTich();
+echo $square->tinhChuVi();
 
-// truy cạp biến name của sv
-echo $sv->name; // có thể truy cập do ở trạng thái public
-//echo $sv->address; lỗi truy cập do biến ở trạng thái private
-//echo $sv->email; lỗi truy cập do biến ở protected : khác thư mục
+echo $square->width;
+// infoMenu la function trong trait
+echo $square->infoMenu();
 
-// gọi phương thức trong StudentModel
-$sv->displayInfo();
-$sv->find_id("HUY NGUYEN");
-
-// so sánh 2 object !!!
-
-if ($sv == $sv1){ // == nhau khi : sv va sv1 có cùng value và
-    // cùng là instance StudentModel
-    //????
-    echo  "sv = sv1";
-}else{
-    echo  "sv != sv1";
+echo $square->getWidth();
+// Kiểm tra kiểu class của 1 instance
+if ($square instanceof \model\Models\Square){
+// True
+    echo  "Square " . '</br>';
 }
 
-if ($sv === $sv1){ // không bằng vì 2 thằng là 2 instance riêng
-    //????
-    echo  "sv === sv1";
-}else {
-    echo  "sv !== sv1";
+if ($square instanceof \model\Models\Rectangle){
+// True
+    echo  "Rectangle  " . '</br>';
 }
 
-// class ẩn danh - anonymous
-// khi cần khai báo nhanh 1 lớp - 1 object
-
-$sinhVienHocLai = new class('Anonymous Class'){
-    public $x = 100;
-    public function displayX(){
-        echo $this->x;
-    }
-};
-echo $sinhVienHocLai->displayX();
+if ($square instanceof \model\Models\StudentModel){
+// false
+    echo  "StudentModel " . '</br>';
+}
 
 
